@@ -1,19 +1,26 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import BookShelf from './BookShelf'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import BookShelf from "./BookShelf"
 
 class ListBooks extends Component {
    
 
     render() {
-        const { books, onUpdateShelf } = this.props;
-        let currentlyReading;
-        let wantToRead;
-        let read;
+        const { books, onUpdateShelf, bookWidth, bookHeight } = this.props;
+        let currentlyReading = [];
+        let wantToRead = [];
+        let read = [];
 
-        currentlyReading = books.filter(x => x.shelf === "currentlyReading");
-        wantToRead = books.filter(x => x.shelf === "wantToRead");
-        read = books.filter(x => x.shelf === "read");
+        books.map((book) => {
+            if (book.shelf === "currentlyReading")
+                currentlyReading.push(book);
+            else if (book.shelf === "wantToRead")
+                wantToRead.push(book);
+            else if (book.shelf === "read")
+                read.push(book);
+
+            return null;
+        });
 
         return (
             <div className="list-books">
@@ -22,9 +29,9 @@ class ListBooks extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <BookShelf title="Currently Reading" books={currentlyReading} onUpdateShelf={onUpdateShelf} />
-                        <BookShelf title="Want to Read" books={wantToRead} onUpdateShelf={onUpdateShelf} />
-                        <BookShelf title="Read" books={read} onUpdateShelf={onUpdateShelf} />
+                        <BookShelf title="Currently Reading" books={currentlyReading} onUpdateShelf={onUpdateShelf} bookWidth={bookWidth} bookHeight={bookHeight} />
+                        <BookShelf title="Want to Read" books={wantToRead} onUpdateShelf={onUpdateShelf} bookWidth={bookWidth} bookHeight={bookHeight} />
+                        <BookShelf title="Read" books={read} onUpdateShelf={onUpdateShelf} bookWidth={bookWidth} bookHeight={bookHeight} />
                     </div>
                 </div>
                 <div className="open-search">

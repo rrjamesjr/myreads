@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import Book from './Book'
+import React, { Component } from "react"
+import Book from "./Book"
 
 class SearchBooks extends Component {
     render() {
-        const { query, books, onUpdateShelf, onUpdateQuery } = this.props
+        const { query, books, onUpdateShelf, onUpdateQuery, bookWidth, bookHeight } = this.props
 
         return (
             <div className="search-books">
@@ -27,7 +27,7 @@ class SearchBooks extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {books.map((book) => (
-                            <Book key={book.id} book={book} onUpdateShelf={onUpdateShelf} />
+                            <Book key={book.id} book={book} onUpdateShelf={onUpdateShelf} bookWidth={bookWidth} bookHeight={bookHeight} />
                         ))}
                     </ol>
                 </div>

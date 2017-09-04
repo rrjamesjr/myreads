@@ -1,16 +1,19 @@
-import React from 'react'
-import './App.css'
-import { Route } from 'react-router-dom'
-import ListBooks from './ListBooks'
-import SearchBooks from './SearchBooks'
-import * as BooksAPI from './BooksAPI'
+import React from "react"
+import "./App.css"
+import { Route } from "react-router-dom"
+import ListBooks from "./ListBooks"
+import SearchBooks from "./SearchBooks"
+import * as BooksAPI from "./BooksAPI"
 
 class BooksApp extends React.Component {
   state = {
     books: [],
-    query: '',
-    searchResults: []
+    query: "",
+    searchResults: [],
+    bookWidth: 128,
+    bookHeight: 193
   };
+
 
   componentDidMount() {
     if (this.state.books.length === 0) {
@@ -33,8 +36,8 @@ class BooksApp extends React.Component {
   searchBooks = (query) => {
     query = query.trim();
 
-    if (query === '')
-      this.setState({ query: '', searchResults: [] });
+    if (query === "")
+      this.setState({ query: "", searchResults: [] });
     else {
       this.setState({ query: query });
       var allBooks = this.state.books;
@@ -45,9 +48,9 @@ class BooksApp extends React.Component {
             if (foundBook)
               book.shelf = foundBook.shelf;
             else
-              book.shelf = 'none';
+              book.shelf = "none";
 
-            book.imageLinks = book.imageLinks || { smallthubmnail: '', thumbnail: '' };
+            book.imageLinks = book.imageLinks || { smallthubmnail: "", thumbnail: "" };
             return book;
           });
 
@@ -63,10 +66,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={({ history }) => (
-          <SearchBooks query={this.state.query} books={this.state.searchResults} onUpdateShelf={this.updateShelf} onUpdateQuery={this.searchBooks} />
+          <SearchBooks query={this.state.query} books={this.state.searchResults} onUpdateShelf={this.updateShelf} onUpdateQuery={this.searchBooks} bookWidth={this.state.bookWidth} bookHeight= {this.state.bookHeight} />
         )} />
         <Route path="/" exact render={() => (
-          <ListBooks books={this.state.books} onUpdateShelf={this.updateShelf} />
+                <ListBooks books={this.state.books} onUpdateShelf={this.updateShelf} bookWidth={this.state.bookWidth} bookHeight= {this.state.bookHeight} />
         )} />
       </div>
     )

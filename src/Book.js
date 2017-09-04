@@ -1,13 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 class Book extends Component {
     static propTypes = {
-        book: PropTypes.object.isRequired
+        book: PropTypes.object.isRequired,
+        bookWidth: PropTypes.number.isRequired,
+        bookHeight: PropTypes.number.isRequired
     };
 
     state = {
-        book: ''
+        book: ""
     }
 
     componentWillMount(){
@@ -16,13 +18,12 @@ class Book extends Component {
 
     render() {
         const { book } = this.state;
-       
 
         return (
             <li>
                 <div className="book">
                     <div className="book-top">
-                        <div className="book-cover" title={book.title} style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                        <div className="book-cover" title={book.title} style={{ width: this.props.bookWidth, height: this.props.bookHeight, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         <div className="book-shelf-changer">
                             <select value={book.shelf} onChange={(e) => this.props.onUpdateShelf(book, e.target.value)} >
                                 <option value="none" disabled>Move to...</option>
